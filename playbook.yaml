@@ -130,10 +130,7 @@
           - python-pip
         state: latest
 
-    #- easy_install: 
-    #    name: pip
-    #    state: latest
-      
+  
     
     - name: Install required pip packages (docker-py)
       pip:
