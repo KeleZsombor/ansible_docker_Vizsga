@@ -3,8 +3,7 @@
   hosts: all
   become: true
 
-  tasks:
-  
+  tasks: 
 
   - name: Set authorized keys from controller machine
     authorized_key:
