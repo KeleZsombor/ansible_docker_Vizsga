@@ -33,13 +33,14 @@
       template:
         src: templates/template_nodejs.j2
         dest: /etc/httpd/conf.d/nodejs.conf
+      notify: httpd restart 
 
     - name: Start service httpd, if not started
       service:
         name: httpd
         state: restarted
         enabled: yes
-      notify: httpd restart
+    #  notify: httpd restart
 
 
   handlers:
