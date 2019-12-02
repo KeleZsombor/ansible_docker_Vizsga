@@ -35,10 +35,10 @@
         dest: /etc/httpd/conf.d/nodejs.conf
       notify: httpd restart 
 
-    - name: Start service httpd, if not started
+    - name: Start service httpd
       service:
         name: httpd
-        state: restarted
+        state: started
         enabled: yes
     #  notify: httpd restart
 
