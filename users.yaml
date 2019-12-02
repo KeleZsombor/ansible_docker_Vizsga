@@ -1,8 +1,10 @@
 ---
 - name: Implement exam
   hosts: all
+  become: true
 
   tasks:
+  
 
   - name: Set authorized keys from controller machine
     authorized_key:
@@ -10,6 +12,14 @@
       state: present
       key: "{{ lookup('file', '/home/exam/.ssh/id_rsa.pub') }}"
 
+  - name: Add user "exam" to sudo
+    lineinfile:
+      path: /etc/sudoers.d/exam
+      line: 'exam ALL=(ALL) NOPASSWD: ALL'
+      state: present
+      mode: 0440
+      create: yes
+#      validate: 'visudo -cf %s'
 
   - name: Set includedir in sudoers
     lineinfile:
