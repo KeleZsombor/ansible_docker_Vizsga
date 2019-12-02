@@ -5,8 +5,8 @@ After=network.target
 
 [Service]
 Type=simple
-User=exam
-ExecStart=/usr/bin/supervisor --watch /nodejs/ /nodejs/index.js
+User=root
+ExecStart=/usr/bin/supervisor --watch /nodejs/  /nodejs/index.js
 Restart=on-failure
 
 [Install]

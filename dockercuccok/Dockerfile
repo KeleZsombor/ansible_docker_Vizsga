@@ -3,4 +3,4 @@ WORKDIR /exam
 COPY *.json *.js ./
 RUN npm install
 EXPOSE 8070
-CMD [ "node", "server.js" ]
+CMD [ "node", "index.js" ]

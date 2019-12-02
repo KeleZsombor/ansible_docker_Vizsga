@@ -78,9 +78,14 @@
       npm:
         name: supervisor
         global: yes
- 
 
-    - name: Copy prepared unit file (nodejsapp.servie)
+    - name: Implement nodejs code from git
+      git:
+        repo: https://github.com/KeleZsombor/ansible_docker_Vizsga.git
+        dest: /nodejs/
+        force: yes 
+
+    - name: Copy prepared unit file (nodejsapp.servive)
       copy:
         src: ./nodejsapp.service
         dest: /usr/lib/systemd/system/nodejsapp.service
