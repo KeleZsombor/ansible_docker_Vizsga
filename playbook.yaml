@@ -5,7 +5,7 @@
   gather_facts: No
   vars:
     packages: [httpd,libselinux-python,libsemanage-python]
-    nodejs_ip: 192.168.56.230
+  
 
   tasks:
     - name: Install apache and required packages
