@@ -1,4 +1,3 @@
- 
 [Unit]
 Description=Prepared systemd unit file for nodejs app
 Documentation= no any
