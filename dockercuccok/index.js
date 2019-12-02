@@ -1,11 +1,6 @@
-const express = require('express');
-
-const PORT = 8070;
-const HOST = '0.0.0.0';
-
-const app = express();
-app.get('/', (req, res) => {
-  res.send('Exam Docker\n');});
-
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+var http = require('http');
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Exam Docker');
+}).listen(8070, "0.0.0.0");
+console.log('Server running at http://0.0.0.0:8070/');

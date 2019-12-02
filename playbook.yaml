@@ -1,5 +1,5 @@
 ---
-- name: Install web server
+- name: Install webserver
   hosts: web
   become: true
   gather_facts: No
@@ -14,7 +14,7 @@
         state: latest
 
 
-    - name: Adjust firewall
+    - name: Adjust firewall for 80
       firewalld:
         port: 80/tcp
         permanent: yes
@@ -23,13 +23,13 @@
      
 
 
-    - name: Set httpd_can_network_connect flag. Required for proxy
+    - name: Set apache selinux
       seboolean:
         name: httpd_can_network_connect
         state: yes
         persistent: yes
     
-    - name: deploy a template file with a loop
+    - name: deploy a template file 
       template:
         src: templates/template_nodejs.j2
         dest: /etc/httpd/conf.d/nodejs.conf
@@ -62,10 +62,10 @@
   gather_facts: No
 
   tasks:
-    - name: Add repository (with local script, transferred to remote)
+    - name: Add repository (curl nodesource)
       script: ./st_nodeinstall.sh
   
-    - name: Install required packages
+    - name: Install required packages for nodejs
       package:
         name:
         - nodejs
@@ -80,7 +80,7 @@
         global: yes
  
 
-    - name: Copy prepared unit file
+    - name: Copy prepared unit file (nodejsapp.servie)
       copy:
         src: ./nodejsapp.service
         dest: /usr/lib/systemd/system/nodejsapp.service
@@ -88,7 +88,7 @@
         group: root
         mode: '0644'
 
-    - name: Adjust firewall
+    - name: Adjust firewall for 8080
       firewalld:
         port: 8080/tcp
         permanent: yes
@@ -112,7 +112,7 @@
         enabled: yes
 
 
-- name: Install docker
+- name: Install docker dependencies and docker task
   gather_facts: No
   hosts: nodejs
   become: true
@@ -123,17 +123,17 @@
         name: epel-release
         state: latest
 
-    - easy_install:
+    - easy_install: install pip
         name: pip
         state: latest
       
     
-    - name: Install required pip packages
+    - name: Install required pip packages (docker-py)
       pip:
         name: docker-py
 
 
-    - name: Install required packages
+    - name: Install required packages (yum-utilsm device, lvm2, git)
       package:
         name:
           - yum-utils 
@@ -181,7 +181,7 @@
 
     - name: Build an image from Dockerfile
       docker_image:
-        name: dockercont
+        name: exam/nodeapp
         path: /dockercuccok/
         tag: latest
         source: build
@@ -190,7 +190,7 @@
 
     - name: Start a container
       docker_container:
-        name: exam_container
+        name: exam/nodeapp
         image: dockercont
         published_ports: 8070:8070
         state: started

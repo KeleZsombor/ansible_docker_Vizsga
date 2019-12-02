@@ -1,11 +1,9 @@
 [web]
-192.168.56.240
+web1 ansible_host=192.168.56.240
 
 [nodejs]
-192.168.56.230
-
+node1 ansible_host=192.168.56.230
 
 [all:vars]
 ansible_connection=ssh
 ansible_user=exam
-ansible_pass=000000
